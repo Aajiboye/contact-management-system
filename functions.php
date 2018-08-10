@@ -96,7 +96,10 @@ function search($searchKey)
 	if ((strtolower($searchKey)==strtolower($contact[0])||($searchKey==$contact[1]) ))
 	{
 		$Temp[]=$i;
-		$Temp[]=$contact;
+		
+		foreach ($contact as $key) {
+			$Temp[]=$key;
+		}
 		$searchResult[]=$Temp;
 	}
 		$i++;
