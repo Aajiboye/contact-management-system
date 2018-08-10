@@ -1,0 +1,81 @@
+Documentation
+
+Add Contact
+?action=add
+POST
+name, phone
+
+Expected Output
+[
+	success: true,
+	message: 
+		[
+			["Invalid format for phone number", "Name is empty!"]
+		]
+]
+
+?action=delete
+POST
+id
+
+Expected Output
+[
+	success: false,
+	message: 
+		[
+			["Contact ID is invalid!"]
+		]
+]
+
+?action=search
+POST
+keyword
+
+Expected Output
+[
+	success: true,
+	results:
+	[
+		[2,"James", Adebisi],
+		[8,"James", Olayemi],
+
+	],
+	message: 
+	[
+		["Found 2 results"]
+	]
+]
+
+?action=view
+GET
+Expected Output
+[
+	success: true,
+	results:
+	[
+		[2,"James", Adebisi],
+		[3,"Daniel", Olayemi],
+		[4,"Yinka", Ademuyiwa],
+
+	],
+	message: 
+	[
+		["Found 3 results"]
+	]
+]
+
+?action=update
+POST id, name, phone
+
+Expected Output
+[
+	success: true,
+	results:
+	[
+		[2,"James", Adebisi], //returns the new contact
+	],
+	message: 
+	[
+		["Contact Updated"]
+	]
+]
