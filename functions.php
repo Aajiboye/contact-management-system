@@ -8,7 +8,7 @@ function feedback($success=false,$message=[],$result=[]){
 		$response=[
 		"success"=>$success,
 		"message"=>$message,
-		"result"=>$result,
+		"results"=>$result,
 	];
 
 	echo json_encode($response);
@@ -18,36 +18,37 @@ function addContact($name,$phone)
 	//GLOBAL KEYWORD MAKES PHONEBOOK VISIBLE INSIDE THE FUNCTION
 	global $phonebook;
 	$name=ucfirst($name);
-	if($phone==""){
+	if($phone=="")
+	{
 		$message[]='Number field cannot be empty';
 	}
-	elseif(!(is_numeric($phone)))
+	if(!(is_numeric($phone)))
 	{
 		$message[]='Number field cannot contain letters';
 		$success=False;
 	}
-	elseif(true){
+	if(!($phone=="")){
 	//check by number if contact already exists
 	foreach ($phonebook as $contact)
 	{
-		if(in_array($phone,$contact))
+	if(in_array($phone,$contact))
 	{
 		$success=False;
 		$message[]='Contact already exists with '.$phone;
 		break;
 	}
 	}
-	}	
-	else
-	{
+	}
+else{			
 		$contact=array($name,$phone);
 		$phonebook[]=$contact;
 		savePhonebook();
 		$success=True;
 		$message[]=$name.' has been successfully  added to your contacts';
 	}
-			feedback($success,$message);
-	}
+		feedback($success,$message);
+	}	
+	
 
 function viewPhonebook()
 	{
