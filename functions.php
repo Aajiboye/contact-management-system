@@ -40,6 +40,7 @@ function addContact($name,$phone)
 	}	
 	else
 	{
+		$contact=array($name,$phone);
 		$phonebook[]=$contact;
 		savePhonebook();
 		$success=True;
