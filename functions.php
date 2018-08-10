@@ -8,12 +8,12 @@ function feedback($success=false,$message=[],$result=[]){
 		$response=[
 		"success"=>$success,
 		"message"=>$message,
-		"result"=>$result,
+		"results"=>$result,
 	];
 
 	echo json_encode($response);
 }
-function addContact($name,$phone)
+function addContact($name, $phone, $email, $gender, $bio)
 	{
 	//GLOBAL KEYWORD MAKES PHONEBOOK VISIBLE INSIDE THE FUNCTION
 	global $phonebook;
