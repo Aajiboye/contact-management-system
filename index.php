@@ -14,14 +14,18 @@ switch ($action) {
         addContact($name, $phone, $email, $gender, $bio);
         break;
     case 'delete':
-        $index = $_POST['id'];
-        deleteContact($index);
+        $id = isset($_POST['id']) ? $_POST['id'] : '';;
+        deleteContact($id);
         break;
     case 'update':
-        $editIndex = $_POST['id'];
-        $newName = $_POST['name'];
-        $newNumber = $_POST['phone'];
-        editContact($editIndex, $newName, $newNumber);
+        $name = !empty($_POST['name']) ? $_POST['name'] : ''; // Read about ternary operators
+        $phone = !empty($_POST['phone']) ? $_POST['phone'] : '';
+        $email = !empty($_POST['email']) ? $_POST['email'] : '';
+        $gender = !empty($_POST['gender']) ? $_POST['gender'] : '';
+        $bio = !empty($_POST['bio']) ? $_POST['bio'] : '';
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+        editContact($id, $name, $phone, $email, $gender, $bio);
         break;
     case 'search':
         $searchKey = $_POST['keyword'];
