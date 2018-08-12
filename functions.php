@@ -30,12 +30,15 @@ function checkNumberExistence($phone)
     }
     return $status;
 }
-function addContact($name, $phone, $email, $gender, $bio)
+function addContact($name='', $phone='', $email='', $gender='', $bio='')
 {
     //GLOBAL KEYWORD MAKES PHONEBOOK VISIBLE INSIDE THE FUNCTION
     global $phonebook;
     $name = ucfirst($name);
     $success = false;
+    if ($name == "") {
+        $message[] = 'Name field is required!';
+    }
     if ($phone == "") {
         $message[] = 'Number field cannot be empty';
     }
