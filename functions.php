@@ -13,6 +13,20 @@ function feedback($success=false,$message=[],$result=[]){
 
     echo json_encode($response);
 }
+
+function checkNumberExistence($phone){
+    global $phonebook;
+//check by number if contact already exists
+foreach ($phonebook as $contact) {
+   if (in_array($phone, $contact)) {
+       $status=true;
+        break;
+     }
+     else 
+     $status=false;
+}
+return $status;
+}
 function addContact($name, $phone, $email, $gender, $bio)
 {
     //GLOBAL KEYWORD MAKES PHONEBOOK VISIBLE INSIDE THE FUNCTION
@@ -20,63 +34,51 @@ function addContact($name, $phone, $email, $gender, $bio)
     $name = ucfirst($name);
     if ($phone == "") {
         $message[] = 'Number field cannot be empty';
-    } elseif (!(is_numeric($phone))) {
+        $success=false;
+            } 
+    if (!(is_numeric($phone))) {
         $message[] = 'Number field cannot contain letters';
         $success = false;
-    } elseif (true) {
-        //check by number if contact already exists
-        foreach ($phonebook as $contact) {
-            if (in_array($phone, $contact)) {
-                $success = false;
-                $message[] = 'Contact already exists with ' . $phone;
-                break;
             }
+    if (!preg_match("/^[a-zA-Z0-9 ]*$/",$name))
+         {
+            $message[] = "Only letters and white space allowed";
+            $success=false;
+                    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+         {
+            $message[] = "Invalid email format";
+            $success=false;
         }
-    } else {
-        $contact = array($name, $phone);
+
+    if ($gender=="")
+    {
+            $message[]='Kindly select a gender';
+            $success=false;
+         }
+    
+ 
+
+    if($phone!="" && $gender!="" && (is_numeric($phone)) && preg_match("/^[a-zA-Z0-9 ]*$/",$name) && filter_var($email, FILTER_VALIDATE_EMAIL ))
+       {
+        if(checkNumberExistence($phone)){
+        $success = false;
+        $message[] = 'Contact already exists with ' . $phone;
+        }
+        else{
+        $contact = array($name, $phone, $email, $gender, $bio);
         $phonebook[] = $contact;
         savePhonebook();
         $success = true;
-        $message[] = $name . ' has been successfully  added to your contacts';
+        $message[] = $name .' has been successfully  added to your contacts';
+        }
+        
     }
-    feedback($success, $message);
+    feedback($success, $message);  
 }
-function addContact($name,$phone)
-	{
-	//GLOBAL KEYWORD MAKES PHONEBOOK VISIBLE INSIDE THE FUNCTION
-	global $phonebook;
-	$name=ucfirst($name);
-	if($phone=="")
-	{
-		$message[]='Number field cannot be empty';
-	}
-	if(!(is_numeric($phone)))
-	{
-		$message[]='Number field cannot contain letters';
-		$success=False;
-	}
-	if(!($phone=="")){
-	//check by number if contact already exists
-	foreach ($phonebook as $contact)
-	{
-	if(in_array($phone,$contact))
-	{
-		$success=False;
-		$message[]='Contact already exists with '.$phone;
-		break;
-	}
-	}
-	}
-else{			
-		$contact=array($name,$phone);
-		$phonebook[]=$contact;
-		savePhonebook();
-		$success=True;
-		$message[]=$name.' has been successfully  added to your contacts';
-	}
-		feedback($success,$message);
-	}	
-	
+     
+    
+
 
 function viewPhonebook()
 {
