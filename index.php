@@ -14,7 +14,7 @@ switch ($action) {
         addContact($name, $phone, $email, $gender, $bio);
         break;
     case 'delete':
-        $id = isset($_POST['id']) ? $_POST['id'] : '';;
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
         deleteContact($id);
         break;
     case 'update':

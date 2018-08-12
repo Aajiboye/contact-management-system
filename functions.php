@@ -88,7 +88,7 @@ function deleteContact($index = '')
         $message[] = 'Contact does not exist!';
         $success = false;
     } else {
-        $deleted = array_splice($phonebook, $index, 1); 
+        $deleted = array_splice($phonebook, $index, 1);
         savePhonebook();
         $success = true;
         $message[] = $deleted[0][0] . ' has been deleted from your phonebook!';
@@ -97,9 +97,10 @@ function deleteContact($index = '')
 
 }
 
-function searchFields($contact, $searchKey){
-    foreach($contact as $field){
-        if (strpos(strtolower($field) , strtolower($searchKey)) !== false) {
+function searchFields($contact, $searchKey)
+{
+    foreach ($contact as $field) {
+        if (strpos(strtolower($field), strtolower($searchKey)) !== false) {
             return true;
         }
     }
@@ -113,7 +114,7 @@ function search($searchKey)
     $i = 0;
     foreach ($phonebook as $contact) {
         $Temp = [];
-        
+
         if (searchFields($contact, $searchKey)) {
             $Temp[] = $i;
 
@@ -139,7 +140,7 @@ function search($searchKey)
         feedback($success, $message, $result);
     }
 }
-function editContact($id='', $name='', $phone='', $email='', $gender='', $bio='')
+function editContact($id = '', $name = '', $phone = '', $email = '', $gender = '', $bio = '')
 {
     global $phonebook;
     $name = ucfirst($name);
@@ -151,22 +152,22 @@ function editContact($id='', $name='', $phone='', $email='', $gender='', $bio=''
         $message[] = 'Contact does not exist';
         $success = false;
     } else {
-        
+
         if ($name == "") {
             $name = $phonebook[$id][0];
-        } 
+        }
         if ($phone == "") {
             $phone = $phonebook[$id][1];
-        } 
+        }
         if ($email == "") {
             $email = $phonebook[$id][2];
-        } 
+        }
         if ($gender == "") {
             $gender = $phonebook[$id][3];
-        } 
+        }
         if ($bio == "") {
             $bio = $phonebook[$id][4];
-        } 
+        }
         $newContact = [$name, $phone, $email, $gender, $bio];
         $phonebook[$id] = $newContact;
         savePhonebook();
