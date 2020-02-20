@@ -1,0 +1,12 @@
+{
+    "name": "ab/kols-rest",
+    "require": {
+        "alibabacloud/sdk": "^1.8"
+    },
+    "authors": [
+        {
+            "name": "abraham",
+            "email": "abrahamajiboye106@gmail.com"
+        }
+    ]
+}
